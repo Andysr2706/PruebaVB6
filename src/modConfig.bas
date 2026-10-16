@@ -1,8 +1,6 @@
 Attribute VB_Name = "modConfig"
-'=====================================================================
 ' modConfig - lectura de configuracion externa (config.ini)
 ' Ningun servidor, usuario o clave vive en el codigo.
-'=====================================================================
 Option Explicit
 
 Private Declare Function GetPrivateProfileString Lib "kernel32" Alias "GetPrivateProfileStringA" _

@@ -11,14 +11,12 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'=====================================================================
 ' clsCalculoMora - interes moratorio, independiente de BD e interfaz.
 ' Replica EXACTAMENTE dbo.tvf_Mora:
 '   diasMora = max(0, fechaCorte - fechaVencimiento - diasGracia)
 '   interes  = RedondeoComercial(saldo * tasa * diasMora / 365, 2)
 ' Se usa Decimal (Variant/CDec, 28 digitos) para el calculo intermedio
 ' y Currency para el resultado: nunca Double.
-'=====================================================================
 Option Explicit
 
 Private mDiasMora As Long

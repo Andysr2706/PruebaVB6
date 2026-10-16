@@ -1,12 +1,10 @@
 Attribute VB_Name = "modReportes"
-'=====================================================================
 ' modReportes - integracion con Crystal Reports XI R2 (RDC craxdrt.dll)
 ' - Reasigna la conexion en tiempo de ejecucion desde config.ini
 '   (reporte principal y subreportes): los .rpt no dependen del
 '   servidor/base usados en diseno.
 ' - Envia parametros desde codigo sin dialogo de Crystal.
 ' - Exporta a PDF sin intervencion del usuario.
-'=====================================================================
 Option Explicit
 
 Private Const MODULO As String = "modReportes"

@@ -1,10 +1,8 @@
 Attribute VB_Name = "modLog"
-'=====================================================================
 ' modLog - registro centralizado de errores
 ' Escribe en archivo (siempre) y en la tabla LogError (via SP).
 ' Convencion: un error ya registrado se re-lanza con Source = FUENTE_REGISTRADO
 ' para que las capas superiores no lo registren dos veces.
-'=====================================================================
 Option Explicit
 
 Public Const FUENTE_REGISTRADO As String = "CobranzaExpress.Registrado"

@@ -11,11 +11,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'=====================================================================
 ' clsDataAccess - UNICO punto del sistema que crea objetos ADO
 ' (Connection, Command, Recordset). Solo procedimientos almacenados
 ' con parametros tipados; nunca SQL concatenado.
-'=====================================================================
 Option Explicit
 
 Private Const MODULO As String = "clsDataAccess"

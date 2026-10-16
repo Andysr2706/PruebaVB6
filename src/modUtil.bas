@@ -1,8 +1,6 @@
 Attribute VB_Name = "modUtil"
-'=====================================================================
 ' modUtil - manejo explicito de Null, fechas y montos independientes
 ' de la configuracion regional del equipo.
-'=====================================================================
 Option Explicit
 
 ' Si recibe un ADODB.Field (rs!Campo) devuelve su .Value; si no, el valor.

@@ -11,11 +11,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'=====================================================================
 ' clsCobranza - reglas de negocio de cuentas por cobrar.
 ' Valida entradas, invoca la capa de datos y traduce resultados.
 ' No conoce formularios ni crea objetos ADO de conexion.
-'=====================================================================
 Option Explicit
 
 Private Const MODULO As String = "clsCobranza"
@@ -42,9 +40,7 @@ Private Sub Class_Terminate()
     Set mDA = Nothing
 End Sub
 
-'---------------------------------------------------------------------
 ' Consulta de clientes con saldo (Recordset desconectado para grid)
-'---------------------------------------------------------------------
 Public Function BuscarClientes(ByVal Texto As String, ByVal FechaCorte As Date) As ADODB.Recordset
     On Error GoTo EH
     Dim cmd As ADODB.Command
@@ -119,9 +115,7 @@ EH:
     Relanzar "TasaDefecto"
 End Function
 
-'---------------------------------------------------------------------
 ' Pagos
-'---------------------------------------------------------------------
 Public Sub ValidarPago(ByVal ClienteId As Long, ByVal Fecha As Date, ByVal Monto As Currency, _
                        ByVal FormaPago As String, ByVal Referencia As String)
     If ClienteId <= 0 Then Err.Raise ERR_VALIDACION, MODULO, "Seleccione un cliente."
@@ -192,9 +186,7 @@ Public Function MensajeResultado(ByVal Codigo As ResultadoPago) As String
     End Select
 End Function
 
-'---------------------------------------------------------------------
 ' Reportes y pruebas
-'---------------------------------------------------------------------
 ' Modelo PUSH: el Recordset se entrega al reporte de antiguedad
 Public Function DatosAntiguedad(ByVal FechaCorte As Date) As ADODB.Recordset
     On Error GoTo EH

@@ -43,11 +43,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'=====================================================================
 ' Rutina de pruebas: cada caso muestra el esperado, el obtenido en VB6
 ' (clsCalculoMora) y el obtenido en SQL Server (tvf_Mora via SP).
 ' Fecha de corte fija para que los resultados sean reproducibles.
-'=====================================================================
 Option Explicit
 
 Private Const MODULO As String = "frmPruebasMora"

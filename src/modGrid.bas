@@ -1,7 +1,5 @@
 Attribute VB_Name = "modGrid"
-'=====================================================================
 ' modGrid - utilidades de presentacion para MSFlexGrid
-'=====================================================================
 Option Explicit
 
 ' Encabezados separados por "|" y anchos en twips separados por "|"
