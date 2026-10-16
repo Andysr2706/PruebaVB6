@@ -55,3 +55,6 @@ Copia `src/config.ini.example` como `src/config.ini` (en la misma carpeta del .e
 - [DECISIONES.md](DECISIONES.md): arquitectura, ADO, dinero, mora, concurrencia, pull/push, errores y pendientes.
 - [REVISION.md](REVISION.md): revisión del código legado.
 - [docs/REQUISITOS_Y_RIESGOS.md](docs/REQUISITOS_Y_RIESGOS.md): requisitos funcionales y no funcionales, riesgos y puesta en marcha.
+
+## Video
+- https://drive.google.com/file/d/1UjuIxP2GJ9qU3CAD6LIK1-nLo9Op_1x9/view?usp=sharing
