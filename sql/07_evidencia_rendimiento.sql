@@ -25,6 +25,12 @@ PRINT '=== 3) usp_Reporte_EstadoCuenta (seek por cliente) ===';
 DECLARE @Cli INT = (SELECT TOP 1 ClienteId FROM dbo.Cliente WHERE Codigo LIKE 'VOL%' ORDER BY ClienteId);
 EXEC dbo.usp_Reporte_EstadoCuenta @ClienteId = @Cli, @FechaCorte = @Corte;
 
+PRINT '=== 4) Facturas de ese cliente FORZANDO scan (sin IX_Factura_Cliente_Venc) ===';
+SELECT f.FacturaId, f.NumeroFactura, f.FechaVencimiento, f.Saldo
+FROM dbo.Factura AS f WITH (INDEX(0))
+WHERE f.ClienteId = @Cli AND f.Saldo <> 0
+ORDER BY f.FechaVencimiento, f.NumeroFactura;
+
 SET STATISTICS IO OFF;
 SET STATISTICS TIME OFF;
 GO

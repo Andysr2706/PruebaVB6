@@ -76,8 +76,8 @@
 
 ## Índices
 - `IX_Factura_Cliente_Venc (ClienteId, FechaVencimiento, NumeroFactura) INCLUDE (...)`: seek por cliente, ya ordenado en FIFO. Cubre pendientes, estado de cuenta y el reparto de pagos.
-- `IX_Factura_Saldo INCLUDE (ClienteId, FechaVencimiento, Tipo)`: la antigüedad lee solo las columnas necesarias, sin tocar el clustered.
-- Evidencia: `sql/07_evidencia_rendimiento.sql` y `docs/evidencia/`.
+- `IX_Factura_Saldo` **se eliminó** después de revisar el plan real: el optimizador no lo usaba (prefiere `IX_Factura_Cliente_Venc` + Merge Join) y encarecía cada pago. También se descartó el índice sugerido por SQL Server `(FechaEmision, Saldo)`, porque ese filtro incluye casi toda la tabla. La antigüedad responde en 240 ms con 100k facturas; con más volumen convendría un columnstore o una tabla de saldos resumidos.
+- Evidencia: `sql/07_evidencia_rendimiento.sql` y `docs/evidencia/RENDIMIENTO.md`.
 
 ## Tradeoffs por tiempo y pendientes
 - La antigüedad usa el **saldo actual**, no el saldo histórico a la fecha de corte (para eso habría que reconstruir con `PagoDetalle`).

@@ -110,11 +110,10 @@ GO
    IX_Factura_Cliente_Venc: soporta pendientes por cliente (seek por
    ClienteId, ya ordenado por vencimiento/numero = orden FIFO) y el
    estado de cuenta, cubriendo las columnas que leen los SP.
-   IX_Factura_Saldo: soporta antiguedad de saldos (solo saldo <> 0).   */
+   (IX_Factura_Saldo se elimino: el plan real mostro que el optimizador
+   no lo usa para la antiguedad y solo encarecia cada pago.)   */
 CREATE INDEX IX_Factura_Cliente_Venc ON dbo.Factura (ClienteId, FechaVencimiento, NumeroFactura)
     INCLUDE (Tipo, FechaEmision, Monto, Saldo);
-CREATE INDEX IX_Factura_Saldo ON dbo.Factura (Saldo)
-    INCLUDE (ClienteId, FechaVencimiento, Tipo);
 CREATE INDEX IX_Cliente_Vendedor ON dbo.Cliente (VendedorId) INCLUDE (Codigo, Nombre);
 CREATE INDEX IX_Cliente_Nombre ON dbo.Cliente (Nombre);
 CREATE INDEX IX_Pago_Cliente_Fecha ON dbo.Pago (ClienteId, Fecha);
