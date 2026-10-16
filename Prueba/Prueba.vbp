@@ -8,6 +8,7 @@ Object={F62B9FA4-455F-4FE3-8A2D-205E4F0BCAFB}#11.5#0; CRViewer.dll
 Form=Form2.frm
 IconForm="Form1"
 Startup="Form1"
+ExeName32="Prueba.exe"
 Command32=""
 Name="Project1"
 HelpContextID="0"

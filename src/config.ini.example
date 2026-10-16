@@ -1,0 +1,20 @@
+; Cobranza Express - configuracion externa
+; Copie este archivo como config.ini (misma carpeta del .exe) y complete la clave.
+; config.ini NO se versiona (esta en .gitignore).
+[BaseDatos]
+Proveedor=SQLOLEDB
+Servidor=.\SQLEXPRESS
+BaseDatos=Cobranza
+Usuario=CobranzaApp
+Clave=
+; segundos
+ConnectionTimeout=15
+CommandTimeout=60
+
+[Reportes]
+; rutas absolutas o relativas a la carpeta del ejecutable
+RutaReportes=..\reportes
+RutaPDF=..\pdf
+
+[Log]
+RutaLog=..\logs
