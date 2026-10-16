@@ -75,7 +75,10 @@ Private Sub AsignarLogOn(ByVal rep As CRAXDRT.Report)
 End Sub
 
 ' Busca el parametro por nombre ("@ClienteId" o "{?@ClienteId}") y asigna su valor.
-Public Sub AsignarParametro(ByVal rep As CRAXDRT.Report, ByVal Nombre As String, ByVal Valor As Variant)
+' Obligatorio = False: no falla si el parametro no existe (modelo push:
+' SetDataSource descarta los parametros del SP de diseno).
+Public Sub AsignarParametro(ByVal rep As CRAXDRT.Report, ByVal Nombre As String, ByVal Valor As Variant, _
+                            Optional ByVal Obligatorio As Boolean = True)
     On Error GoTo EH
     Dim p As CRAXDRT.ParameterFieldDefinition
     Dim bEncontrado As Boolean
@@ -87,12 +90,29 @@ Public Sub AsignarParametro(ByVal rep As CRAXDRT.Report, ByVal Nombre As String,
             bEncontrado = True
         End If
     Next
-    If Not bEncontrado Then
+    If Not bEncontrado And Obligatorio Then
         Err.Raise vbObjectError + 3001, MODULO, "El reporte no tiene el parametro " & Nombre
     End If
     Exit Sub
 EH:
     Relanzar "AsignarParametro"
+End Sub
+
+' Asigna un texto a una formula del reporte (ej. {@FechaCorteTexto}).
+' Se usa en el modelo push, donde no hay parametros del SP.
+Public Sub AsignarFormulaTexto(ByVal rep As CRAXDRT.Report, ByVal Nombre As String, ByVal Texto As String)
+    On Error GoTo EH
+    Dim f As CRAXDRT.FormulaFieldDefinition
+    For Each f In rep.FormulaFields
+        If StrComp(f.FormulaFieldName, Nombre, vbTextCompare) = 0 Or _
+           StrComp(f.Name, "{@" & Nombre & "}", vbTextCompare) = 0 Then
+            f.Text = "'" & Replace(Texto, "'", "''") & "'"
+            Exit Sub
+        End If
+    Next
+    Err.Raise vbObjectError + 3002, MODULO, "El reporte no tiene la formula " & Nombre
+EH:
+    Relanzar "AsignarFormulaTexto"
 End Sub
 
 ' Exporta a PDF en la ruta de config.ini, sin dialogos. Devuelve la ruta.

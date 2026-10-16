@@ -173,8 +173,11 @@ Private Function PrepararReporte(ByRef NombreBase As String) As CRAXDRT.Report
         Set neg = New clsCobranza
         Set rs = neg.DatosAntiguedad(dCorte)
         Set rep = modReportes.AbrirReporte(modReportes.RPT_ANTIGUEDAD)
+        ' El parametro se asigna ANTES de SetDataSource, que descarta los
+        ' parametros del SP usado en diseno (por eso aqui es opcional).
+        modReportes.AsignarParametro rep, "@FechaCorte", dCorte, False
         rep.Database.SetDataSource rs, 3, 1
-        modReportes.AsignarParametro rep, "@FechaCorte", dCorte
+        modReportes.AsignarFormulaTexto rep, "FechaCorteTexto", modUtil.FechaTexto(dCorte)
         NombreBase = "AntiguedadSaldos"
         Set rs = Nothing      ' el reporte conserva su propia referencia
         Set neg = Nothing
