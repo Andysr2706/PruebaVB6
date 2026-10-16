@@ -3,3 +3,8 @@
 *.log
 *.tmp
 *.scc
+*.oca
+# configuracion real con credenciales
+config.ini
+logs/
+.vs/
