@@ -1,20 +1,21 @@
 VERSION 5.00
 Object = "{F62B9FA4-455F-4FE3-8A2D-205E4F0BCAFB}#11.5#0"; "CRViewer.dll"
-Begin VB.Form Form2 
-   Caption         =   "Form2"
+Begin VB.Form frmVisor 
+   Caption         =   "Visor de reportes"
    ClientHeight    =   8055
    ClientLeft      =   120
    ClientTop       =   465
-   ClientWidth     =   10950
-   LinkTopic       =   "Form2"
+   ClientWidth     =   12000
+   LinkTopic       =   "frmVisor"
    ScaleHeight     =   8055
-   ScaleWidth      =   10950
-   StartUpPosition =   3  'Windows Default
+   ScaleWidth      =   12000
+   StartUpPosition =   2  'CenterScreen
+   WindowState     =   2  'Maximized
    Begin CrystalActiveXReportViewerLib11_5Ctl.CrystalActiveXReportViewer CRViewer1 
       Height          =   7095
-      Left            =   360
+      Left            =   0
       TabIndex        =   0
-      Top             =   360
+      Top             =   0
       Width           =   9255
       _cx             =   16325
       _cy             =   12515
@@ -28,7 +29,7 @@ Begin VB.Form Form2
       EnableCloseButton=   -1  'True
       EnableProgressControl=   0   'False
       EnableSearchControl=   -1  'True
-      EnableRefreshButton=   -1  'True
+      EnableRefreshButton=   0   'False
       EnableDrillDown =   -1  'True
       EnableAnimationControl=   -1  'True
       EnableSelectExpertButton=   0   'False
@@ -42,41 +43,37 @@ Begin VB.Form Form2
       EnableSearchExpertButton=   0   'False
       EnableHelpButton=   0   'False
       LaunchHTTPHyperlinksInNewBrowser=   -1  'True
-      EnableLogonPrompts=   -1  'True
+      EnableLogonPrompts=   0   'False
       LocaleID        =   1033
       EnableInteractiveParameterPrompting=   0   'False
    End
 End
-Attribute VB_Name = "Form2"
+Attribute VB_Name = "frmVisor"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private crApp As New CRAXDRT.Application
-Private crRep As CRAXDRT.Report
+Private Const MODULO As String = "frmVisor"
+Private mRep As CRAXDRT.Report
 
-Private Sub Form_Load()
-    Dim t As CRAXDRT.DatabaseTable
-    On Error GoTo ErrHandler
-
-    Set crRep = crApp.OpenReport(App.Path & "\Clientes.rpt")
-
-    For Each t In crRep.Database.Tables
-        t.SetLogOnInfo ".\SQLEXPRESS", "Prueba", "sa", "Prueba2026!"
-    Next
-
-    CRViewer1.ReportSource = crRep
+Public Sub Mostrar(ByVal rep As CRAXDRT.Report, ByVal Titulo As String)
+    On Error GoTo EH
+    Set mRep = rep
+    Me.Caption = Titulo
+    CRViewer1.ReportSource = mRep
     CRViewer1.ViewReport
+    Me.Show
     Exit Sub
-
-ErrHandler:
-    MsgBox "Error " & Err.Number & ": " & Err.Description, vbCritical
+EH:
+    modLog.MostrarError MODULO, "Mostrar", Err.Number, Err.Description, Err.Source
 End Sub
 
 Private Sub Form_Resize()
-    If Me.WindowState <> vbMinimized Then
-        CRViewer1.Move 0, 0, Me.ScaleWidth, Me.ScaleHeight
-    End If
+    If Me.WindowState <> vbMinimized Then CRViewer1.Move 0, 0, Me.ScaleWidth, Me.ScaleHeight
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+    Set mRep = Nothing
 End Sub
