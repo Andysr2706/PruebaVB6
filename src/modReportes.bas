@@ -106,6 +106,7 @@ Public Function ExportarPDF(ByVal rep As CRAXDRT.Report, ByVal NombreBase As Str
         .DestinationType = crEDTDiskFile
         .FormatType = crEFTPortableDocFormat
         .DiskFileName = sArchivo
+        .PDFExportAllPages = True      ' sin esto Crystal espera un rango de paginas (dialogo oculto)
     End With
     rep.Export False
     ExportarPDF = sArchivo
